@@ -1,0 +1,15 @@
+Given the ongoing story, accumulated relationship information up to now, the creative intent for the next story, and a reference story, create the next part of the story. Strongly refer to the flow of the reference story and adapt it to fit the ongoing story.
+
+###INPUT###
+
+Ongoing Story: {now_story}
+
+Accumulated Relationship Information: {relation_accumulative}
+
+Creative Intent for the Next Story: {user_intent}
+
+Reference Story: {storyT0_intent_storyT1_TRIPLET}
+
+###OUTPUT###
+
+Next Story:
