@@ -21,8 +21,8 @@ load_dotenv(verbose=False)
 # 유저 입력은 첫 문단 + 그 다음의 모든 서술의도들
 # 출력은 완결된 하나의 스토리 
 
-get_relation_graph_nowstory = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_relation_graph_nowstory.txt')
-get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_next_story_from_all_source.txt')
+get_relation_graph_nowstory = Generator("chatanthropic_s", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_relation_graph_nowstory.txt')
+get_next_story_from_all_source = Generator("chatanthropic_s", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_next_story_from_all_source.txt')
 
 accumulated_graph = []
 

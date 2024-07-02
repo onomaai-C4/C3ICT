@@ -77,13 +77,16 @@ class Generator:
             self.llm = AzureChatOpenAI(**LLM_ARGS,temperature=temperature)
         elif self.model == "chatopenai":
             self.llm = ChatOpenAI(**OPENAI_ARGS, temperature=temperature)
+        elif self.model == "chatanthropic_s":
+            from langchain_anthropic import ChatAnthropic
+            self.llm = ChatAnthropic(model="claude-3-5-sonnet-20240620",temperature=temperature)
         elif self.model == "chatanthropic_h":
             self.llm = ChatAnthropic(model="claude-3-haiku-20240307",temperature=temperature)
         elif self.model == "chatanthropic_o":
             self.llm = ChatAnthropic(model="claude-3-opus-20240229",temperature=temperature)
         elif self.model == "chatopenai_4o":
             self.llm = ChatOpenAI(**GPT4_O_ARGS, temperature=temperature)
-    
+        #
         print(f"Model Loaded : {self.llm}")
         
         with open(instruction_path, "r") as f:
@@ -98,7 +101,7 @@ class Generator:
             final_input = self.template.format(**input_data)
             
             
-            if self.model in ["chatopenai", "chatanthropic", "chatanthropic_o", "chatanthropic_h", "chatopenai_4o"]:
+            if self.model in ["chatopenai", "chatanthropic", "chatanthropic_o", "chatanthropic_h", "chatopenai_4o", "chatanthropic_s"]:
                 result = self.chain.invoke(input_data).content.replace('\"', ' ').replace('\'', ' ')
             else:
                 result = self.chain.invoke(input_data).replace('\"', ' ').replace('\'', ' ')
