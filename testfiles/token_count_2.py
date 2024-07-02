@@ -1,3 +1,12 @@
+import openai, json
+import tiktoken
+
+# GPT-4 모델을 위한 엔코더 불러오기
+enc = tiktoken.encoding_for_model("gpt-4o")
+
+with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
+    data = json.load(file)
+
 from generate import Generator 
 import requests, re, json, os
 
@@ -47,16 +56,10 @@ if __name__ == "__main__":
     def get_url_from_num(num):
         return f'https://www.gutenberg.org/cache/epub/{num}/pg{num}.txt'
     
-    book_url_num_list = [ #상위 71
-    145, 67979, 4085, 11, 2554, 174, 98, 76, 27827, 1260, 45, 74, 768, 244, 67098, 514, 158, 161, 829, 105, 521, 10676,
-    164, 308, 41445, 863, 766, 203, 1837, 103, 121, 8117, 67138, 910, 500, 141, 2610, 599, 73771, 1023, 805, 73798, 113, 
-    5230, 21816, 86, 18857, 73750, 42324, 61221, 4276, 1093, 140, 2559, 696, 6737, 62, 73917, 73824, 73780, 73727, 73787,
-    1695, 26654, 73858, 963, 1056, 73734, 580, 1081, 974]
-
+    book_url_num_list = [28885, 45975, 73011, 73707, 73760, 1190, 3174, 7100, 30123, 73708, 73866]
     book_url_list = [get_url_from_num(num) for num in book_url_num_list]#여따가 구텐베르그 책들 경로를 다 집어넣으면, 걔네들의 자연어 db(intent triplet)이 만들어짐 json파일로
 
     get_intent_module = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_intent_between_2story.txt')
-    
     
     for nowbook_url in book_url_list:
         nowbook_num = nowbook_url.split('/pg')[0].split('/')[-1]
@@ -80,5 +83,5 @@ if __name__ == "__main__":
             with open(nowbook_TRIPLET_path, 'w') as file:
                 json.dump(nowbook_data, file, indent=4)
             
-    
-     
+tokens = enc.encode(text1)
+print(len(tokens))

@@ -1,10 +1,10 @@
-from generate import Generator 
+from generate import Generator
 import requests, re, json, os, openai
 from langchain_community.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 import numpy as np
 from scipy.spatial.distance import cosine
-
+import random
 load_dotenv(verbose=False)
 
 # 최초입력 INPUT : 첫 문단 + 그 다음 서술의도 
@@ -47,22 +47,37 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
         return response.data[0].embedding
     user_intent_vector = get_embedding(now_Intent)
     
-    with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
+    with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector_filtered.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     top_match_Intent = None
     top_similarity = float('inf')  # Since cosine distance, lower is better
     for entry in data:
         gold_intent_vector = entry.get("GOLD_INTENT_VECTOR", [])
-        if gold_intent_vector:
+        if gold_intent_vector: 
             similarity = cosine(user_intent_vector, gold_intent_vector)
-            if similarity < top_similarity:
+            if similarity < top_similarity: #랜덤하게 가져오기 추가해야함
                 top_similarity = similarity
+                top_match_Intent = entry.get("GOLD_INTENT", "") # top 1 gold intent를 찾았음, 이제 이 intent로 연결된 페어중 하나를 랜덤하게 가져와야 함
+              
+    if '.' in top_match_Intent: #gpt4o가 뽑은 intent들 중 텍스트는 완전히 동일한데 .으로 끝나는 경우와 아닌 경우를 같은 것으로 취급
+        top_match_Intent = top_match_Intent[:-1]
+    else:
+        top_match_Intent = top_match_Intent[:]
+
+    story_triplet_candidate_list = []
+    for entry in data:
+        now_gold_intent_in_db = entry.get("GOLD_INTENT", "")
+        if top_match_Intent in now_gold_intent_in_db : # 검색된 intent에서 구두점을 제거한 문장이, db의 원소들의 gold intent 문자열의 부분집합인 경우
+            connected_story_T0 = entry.get("CHAPTER_T0", "")
+            connected_story_T1 = entry.get("CHAPTER_T1", "")
+            story_triplet_candidate_list.append((connected_story_T0,connected_story_T1)) 
+            # 검색된 intent와 구두점 제외하고 동일한 gold intent를 가지는 스토리를 리스트에 저장, 이 리스트에서 랜덤한 하나를 뽑음
+            
+    
+    print(f'뽑힌 gold intent에 해당하는 db데이터포인트 수 : {len(story_triplet_candidate_list)}')
+    (choiced_story_T0, choiced_story_T1) = random.choice(story_triplet_candidate_list) # 랜덤한 하나를 뽑음
                 
-                top_match_Intent = entry.get("GOLD_INTENT", "")
-                connected_story_T0 = entry.get("CHAPTER_T0", "")
-                connected_story_T1 = entry.get("CHAPTER_T1", "")
-                
-    I = connected_story_T0 + ('\n'+'-'*30+'\n') + top_match_Intent + ('\n'+'-'*30+'\n') + connected_story_T1
+    I = choiced_story_T0 + ('\n'+'-'*30+'\n') + top_match_Intent + ('\n'+'-'*30+'\n') + choiced_story_T1
     
     next_story = get_next_story_from_all_source.generate({'now_story' : now_Story, 
                                                           'relation_accumulative' : R,
@@ -71,7 +86,7 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
     print("-"*50)
     print(f"유저입력 intent : {now_Intent}")
     print(f"유사도1등 gold intent : {top_match_Intent}")
-    print(f"유사도 점수 : {top_similarity}")
+    print(f"유사도 점수(코사인 거리, 낮을수록 유사함) : {top_similarity}")
     print("-"*50)
     return next_story
 
@@ -90,8 +105,8 @@ while True:
     generated_data.append(next_story)
     now_story = next_story
     # 의도를 통해서 다음 스토리를 만든 경우에만 정지명령 가능
-    now_stop_question = input("이쯤에서 그만하고 저장할거면 y누르고, 계속해서 만들거면 다른키 누르면된단다. (y/n): ")
-    if now_stop_question == 'y':
+    now_stop_question = input("이쯤에서 그만하고 저장할거면 S 누르고, 계속해서 만들거면 다른키 누르면된단다. Save and Stop / continue : ")
+    if now_stop_question == 's':
         break
     else:
         pass
