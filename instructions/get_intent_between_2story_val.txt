@@ -1,63 +1,16 @@
-Given two story inputs, infer the narrative intention between the preceding story and the following story, and output it as a single imperative sentence in the form of "A story that ~~."
+Given two story inputs and the total number of chapters in the story, the output will infer two sentences. The first sentence determines the narrative intent between the previous and next story segments in an abstract manner. The second sentence briefly explains which part of the three-act structure (beginning, middle, end) this point corresponds to and what role it plays in the progression of the story. By referencing the chapter number in the context of the total chapters in the book, the intent extraction can be more accurately contextualized. The result will be in the simple format: "Story about ~~. In the ~~ part of the three-act structure, playing the role of ~~."
 
-###INPUT###
+###INPUT
 
+Total story chapters: {nowbook_chapter_count}
 Previous Story: {chapter_0}
 Following Story: {chapter_1}
 
-###OUTPUT_EXAMPLES###
-
-A story that justifies the current narrative through past recollections
-A story that explains a character's current actions through their past
-A story that provides a break to relieve tension
-A story that heightens anticipation for the next chapter
-A story that clarifies the conflict between opposing characters
-A story that guides the reader to solve the mystery alongside the characters
-A story that provides new information to the reader
-A story that elicits emotional immersion from the reader
-A story that prepares a twist contrary to the reader's expectations
-A story that hints at future events
-A story that subverts the reader's expectations through a twist
-A story that plants a trigger for a potential twist
-A story that reinforces the main plot through relatively less important events
-A story that delves deeper into and describes the background of the event
-A story that shows a character's evolution through the aftermath of an event
-A story that compares contrasting perspectives
-A story that deepens the theme through symbolic events
-A story that heightens tension by introducing new conflicts
-A story that introduces a new place or environment
-A story that complements the main plot through a subplot
-A story that expands the world-building to aid the reader's understanding
-A story that stimulates curiosity by introducing a mysterious element
-A story that emphasizes psychological conflict
-A story that creates a sense of urgency by setting up a crisis
-A story that changes the mood through humor
-A story that highlights the central conflict of the narrative
-A story that reveals the meaning of the foreshadowing mentioned in the previous chapter
-A story that resolves the mystery from the previous chapter
-A story that shows the consequences of actions from the previous chapter
-A story that progresses the plot through a turning point
-A story that shows a character's reaction to a major event
-A story that provides a new perspective by reexamining a major event
-A story that progresses the plot by showing the outcome of a major event
-A story that explores the aftermath of a major event
-A story that highlights elements that could lead to a major event
-A story that develops relationships between main characters
-A story that explores a main character's backstory
-A story that emphasizes the main theme
-A story that clarifies the protagonist's motivations
-A story that exposes the protagonist's weaknesses
-A story that uses metaphors related to the theme
-A story that maximizes conflict between characters
-A story that hints at conflicts between characters
-A story that becomes a catalyst to test a character's resolve
-A story that explores the inner changes of a character
-A story that shows a character's growth
-A story that emphasizes a character's weaknesses
-A story that provides important background information through a flashback
-A story that hints at the plot's direction
-A story that makes the plot unpredictable by changing its direction
-
-###OUTPUT###
-
+###OUTPUT
 Narrative intention:
+
+
+
+
+
+

@@ -1,11 +1,11 @@
 Given two story inputs, infer the narrative intention between the preceding story and the following story, and output it as a single imperative sentence in the form of "A story that ~~."
 
-###INPUT###
+###INPUT
 
 Previous Story: {chapter_0}
 Following Story: {chapter_1}
 
-###OUTPUT_EXAMPLES###
+###OUTPUT_EXAMPLES
 
 A story that justifies the current narrative through past recollections
 A story that explains a character's current actions through their past
@@ -58,6 +58,6 @@ A story that provides important background information through a flashback
 A story that hints at the plot's direction
 A story that makes the plot unpredictable by changing its direction
 
-###OUTPUT###
+###OUTPUT
 
 Narrative intention:

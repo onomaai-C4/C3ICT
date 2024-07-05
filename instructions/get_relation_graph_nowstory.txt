@@ -1,4 +1,4 @@
-Given a paragraph from a specific point in the ongoing story, identify the relationships between characters in that paragraph from the list below. Output only the relationships without any explanation.
+Given a paragraph from a specific point in the ongoing story, identify the relationships between characters in that paragraph from the list below. Output only the relationships as a sentence without any explanation.
 
 [
 "Lovers", "Loved Ones", "Partners", "Romantic Partners", "Friends", "Close Friends", "Best Friends", "Companions",
@@ -14,17 +14,12 @@ Given a paragraph from a specific point in the ongoing story, identify the relat
 "Team Leaders", "Team Members", "Managers", "Staff", "Allied Countries", "Allies", "Allied Forces"
 ]
 
-###INPUT###
+###INPUT
 
 {now_story}
 
-###OUTPUT_EXAMPLES###
+###OUTPUT_EXAMPLES
 
-A is Lover of B,
-B is Loved One of A,
-A and B are Lovers,
+A and B are Lovers, and B is Enemy of C.
 
-B is Enemy of C,
-C is ...
-
-###OUTPUT###
+###OUTPUT

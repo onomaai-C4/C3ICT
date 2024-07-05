@@ -93,55 +93,65 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
     return next_story, top_match_Intent
 
 
-generated_data = []
+def get_url_from_num(num):
+        return f'https://www.gutenberg.org/cache/epub/{num}/pg{num}.txt'
+book_url_num_list = [45975, 73011, 73707, 73760, 1190, 3174, 7100, 30123, 73708, 73866] 
 
-user_initial_story = input("최초 스토리 문단 입력 : ")
-print('-'*50)
-now_story = user_initial_story
-generated_data.append(now_story)
-while True:
-    now_intent = input("다음 스토리를 어떤 식으로 쓸깝숑? : ")
-    next_story, next_story_referenced_this_intent = get_next_story_from_all_source_func(now_Story=now_story, now_Intent=now_intent)
-    print(next_story)
-    generated_data.append(now_intent)
-    generated_data.append(next_story_referenced_this_intent)
-    generated_data.append(next_story)
-    now_story = next_story
-    # 의도를 통해서 다음 스토리를 만든 경우에만 정지명령 가능
-    now_stop_question = input("이쯤에서 그만하고 저장할거면 S 누르고, 계속해서 만들거면 다른키 누르면된단다. Save and Stop / continue : ")
-    if now_stop_question == 's':
-        break
-    else:
-        pass
+for num in book_url_num_list:
+    now_valid_data_path = f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/validation_DB_text/{num}_storyT0_INTENT_storyT1_TRIPLET.json'
     
-# JSON에 저장할 딕셔너리 생성
-output_dict = {}
+    with open(now_valid_data_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
 
-# 'story'와 'intent'의 카운터 초기화
-story_count = 0
-intent_count = 0
-refered_intent_count = 0
+    first_chapter_t0 = data[0]["CHAPTER_T0"]
+    gold_intents = [entry["GOLD_INTENT"] for entry in data]
+    
+    generated_data = []
+    
+    user_initial_story = first_chapter_t0
+    now_story = user_initial_story
+    generated_data.append(now_story)
+    
+    for intent in gold_intents:
+        now_intent = intent
+        next_story, next_story_referenced_this_intent = get_next_story_from_all_source_func(now_Story=now_story, now_Intent=now_intent)
+        print(next_story)
+        generated_data.append(now_intent)
+        generated_data.append(next_story_referenced_this_intent)
+        generated_data.append(next_story)
 
-# 리스트를 순서에 따라 'story', 'intent', 'refered_intent'로 분류하여 딕셔너리에 저장
-for index, item in enumerate(generated_data):
-    if index % 3 == 0:  # 3의 배수 인덱스는 'story'
-        key = f"story{story_count}"
-        story_count += 1
-    elif index % 3 == 1:  # 3의 배수 + 1 인덱스는 'intent'
-        key = f"intent{intent_count}"
-        intent_count += 1
-    elif index % 3 == 2:  # 3의 배수 + 2 인덱스는 'refered_intent'
-        key = f"refered_intent{refered_intent_count}"
-        refered_intent_count += 1
-    output_dict[key] = item
+        now_story = next_story
+        
+    ###################################
+    from datetime import datetime
+    current_time = datetime.now()
+    formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
+    print("현재 시각:", formatted_time)
+    ###################################
+    
+    # JSON에 저장할 딕셔너리 생성
+    output_dict = {}
 
-from datetime import datetime
-current_time = datetime.now()
-formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
-print("현재 시각:", formatted_time)
+    # 'story'와 'intent'의 카운터 초기화
+    story_count = 0
+    intent_count = 0
+    refered_intent_count = 0
 
-# JSON 파일로 저장
-with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/results/created_story_{formatted_time}.json', 'w') as json_file:
-    json.dump(output_dict, json_file, indent=4)
+    # 리스트를 순서에 따라 'story', 'intent', 'refered_intent'로 분류하여 딕셔너리에 저장
+    for index, item in enumerate(generated_data):
+        if index % 3 == 0:  # 3의 배수 인덱스는 'story'
+            key = f"story{story_count}"
+            story_count += 1
+        elif index % 3 == 1:  # 3의 배수 + 1 인덱스는 'intent'
+            key = f"intent{intent_count}"
+            intent_count += 1
+        elif index % 3 == 2:  # 3의 배수 + 2 인덱스는 'refered_intent'
+            key = f"refered_intent{refered_intent_count}"
+            refered_intent_count += 1
+        output_dict[key] = item
 
-print("JSON 파일이 저장되었습니다.")
+    # JSON 파일로 저장
+    with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/validation_results/{num}_created_story_{formatted_time}.json', 'w') as json_file:
+        json.dump(output_dict, json_file, indent=4)
+
+    print("JSON 파일이 저장되었습니다.")
