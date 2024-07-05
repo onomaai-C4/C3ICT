@@ -2,7 +2,7 @@ You are a writer continuing a story from a certain point. Using the following fo
 
 The ongoing story
 The user's intent for writing the next part
-The writing style, literary skills, and plot development of the reference story
+The writing style, literary skills, and plot development style of the reference story (do not directly use the characters or events from the reference story)
 The relationships between characters accumulated up to the point of the ongoing story provided as input
 
 Output only the created story, excluding chapter titles or subtitles.

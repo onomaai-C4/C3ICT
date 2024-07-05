@@ -125,7 +125,7 @@ for num in book_url_num_list:
     ###################################
     from datetime import datetime
     current_time = datetime.now()
-    formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
+    formatted_time = current_time.strftime("%Y-%m-%d %H_%M_%S")
     print("현재 시각:", formatted_time)
     ###################################
     

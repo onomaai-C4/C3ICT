@@ -137,7 +137,7 @@ for index, item in enumerate(generated_data):
 
 from datetime import datetime
 current_time = datetime.now()
-formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
+formatted_time = current_time.strftime("%Y-%m-%d %H_%M_%S")
 print("현재 시각:", formatted_time)
 
 # JSON 파일로 저장
