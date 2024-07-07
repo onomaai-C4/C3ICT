@@ -90,7 +90,7 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
     print(f"유사도1등 gold intent : {top_match_Intent}")
     print(f"유사도 점수(코사인 거리, 낮을수록 유사함) : {top_similarity}")
     print("-"*50)
-    return next_story, top_match_Intent
+    return next_story, top_match_Intent, R
 
 
 generated_data = []
@@ -101,15 +101,17 @@ now_story = user_initial_story
 generated_data.append(now_story)
 while True:
     now_intent = input("다음 스토리를 어떤 식으로 쓸깝숑? : ")
-    next_story, next_story_referenced_this_intent = get_next_story_from_all_source_func(now_Story=now_story, now_Intent=now_intent)
+    next_story, next_story_referenced_this_intent, next_story_referenced_this_relation = get_next_story_from_all_source_func(now_Story=now_story, now_Intent=now_intent)
     print(next_story)
     generated_data.append(now_intent)
     generated_data.append(next_story_referenced_this_intent)
+    generated_data.append(next_story_referenced_this_relation)
     generated_data.append(next_story)
+    
     now_story = next_story
     # 의도를 통해서 다음 스토리를 만든 경우에만 정지명령 가능
     now_stop_question = input("이쯤에서 그만하고 저장할거면 S 누르고, 계속해서 만들거면 다른키 누르면된단다. Save and Stop / continue : ")
-    if now_stop_question == 's':
+    if now_stop_question == 's' or now_stop_question == 'S':
         break
     else:
         pass
@@ -121,18 +123,21 @@ output_dict = {}
 story_count = 0
 intent_count = 0
 refered_intent_count = 0
+refered_relation_count = 0
 
-# 리스트를 순서에 따라 'story', 'intent', 'refered_intent'로 분류하여 딕셔너리에 저장
 for index, item in enumerate(generated_data):
-    if index % 3 == 0:  # 3의 배수 인덱스는 'story'
+    if index % 4 == 0:  # 4의 배수 인덱스는 'story'
         key = f"story{story_count}"
         story_count += 1
-    elif index % 3 == 1:  # 3의 배수 + 1 인덱스는 'intent'
+    elif index % 4 == 1:  # 4의 배수 + 1 인덱스는 'intent'
         key = f"intent{intent_count}"
         intent_count += 1
-    elif index % 3 == 2:  # 3의 배수 + 2 인덱스는 'refered_intent'
+    elif index % 4 == 2:  # 4의 배수 + 2 인덱스는 'refered_intent'
         key = f"refered_intent{refered_intent_count}"
         refered_intent_count += 1
+    elif index % 4 == 3:  # 4의 배수 + 3 인덱스는 'referenced_this_relation'
+        key = f"refered_relation{refered_relation_count}"
+        refered_relation_count += 1
     output_dict[key] = item
 
 from datetime import datetime
