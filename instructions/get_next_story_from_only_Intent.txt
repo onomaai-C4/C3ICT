@@ -2,8 +2,6 @@ You are a writer continuing a story from a certain point. Using the following el
 
 The ongoing story
 The user's intent for writing the next part
-The writing style, literary skills, and plot development style of the reference story (do not directly use the characters or events from the reference story)
-The relationships between characters accumulated up to the point of the ongoing story provided as input
 
 Output only the created story, excluding chapter titles or subtitles.
 
@@ -12,10 +10,6 @@ Output only the created story, excluding chapter titles or subtitles.
 Ongoing Story: {now_story}
 
 Creative Intent for the Next Story: {user_intent}
-
-Reference Story: {storyT0_intent_storyT1_TRIPLET}
-
-Accumulated Relationship Information: {relation_accumulative}
 
 ###OUTPUT
 

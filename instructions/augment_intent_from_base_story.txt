@@ -1,0 +1,8 @@
+Receive as input storyT, storyT+1, and the narrative intent between them, and transform the narrative intent into a richer, single sentence. Identify the specific intention behind creating storyT+1 from storyT, and express it as a single sentence where the first part clearly states the specific intention, followed by the original intent. Output only the augmented intent as an imperative, brief single sentence.
+
+###INPUT
+storyT : {storyT}
+storyT+1 : {storyT+1}
+intent between storyT and storyT+1 : {intent}
+
+###OUTPUT
