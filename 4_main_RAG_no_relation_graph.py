@@ -156,13 +156,8 @@ for filename in os.listdir(base_story_intent_augmented_DB_path):
                 
             output_dict[key] = item
 
-        from datetime import datetime
-        current_time = datetime.now()
-        formatted_time = current_time.strftime("%Y-%m-%d %H_%M_%S")
-        print("현재 시각:", formatted_time)
-
         # JSON 파일로 저장
-        with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_RAG_results/{count}_RAG_created_story_{formatted_time}.json', 'w') as json_file:
+        with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_RAG_results/{count}_RAG_created_story.json', 'w') as json_file:
             json.dump(output_dict, json_file, indent=4)
 
         print("JSON 파일이 저장되었습니다.")
