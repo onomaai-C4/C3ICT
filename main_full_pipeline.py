@@ -144,10 +144,10 @@ for index, item in enumerate(generated_data):
 from datetime import datetime
 current_time = datetime.now()
 formatted_time = current_time.strftime("%Y-%m-%d %H_%M_%S")
-print("현재 시각:", formatted_time)
+print("Current time:", formatted_time)
 
-# JSON 파일로 저장
+# Save as JSON file
 with open(f'./results/created_story_{formatted_time}.json', 'w') as json_file:
     json.dump(output_dict, json_file, indent=4)
 
-print("JSON 파일이 저장되었습니다.")
+print("JSON file has been saved.")
