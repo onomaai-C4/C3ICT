@@ -6,8 +6,11 @@ This repo contains code for C4: Creating the Next Story From the Current Story A
 ![main_module_img](./README_data/main_module.png)
 
 ### Preparation
-
-First, you will need an OpenAPI key. Enter your key in the format 'sk-xxxx...' in the .env_sample file.
+First, download the requirements.txt file.
+```
+pip install -r requirements.txt
+```
+Second, you will need an OpenAPI key. Enter your key in the format 'sk-xxxx...' in the .env_sample file.
 ```
 OPENAI_API_KEY='sk-xxxx...'
 ```
