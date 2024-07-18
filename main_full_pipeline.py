@@ -76,7 +76,7 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
             # 검색된 intent와 구두점 제외하고 동일한 gold intent를 가지는 스토리를 리스트에 저장, 이 리스트에서 랜덤한 하나를 뽑음
             
     
-    print(f'뽑힌 gold intent에 해당하는 db데이터포인트 수 : {len(story_triplet_candidate_list)}')
+    print(f'Number of db datapoints corresponding to the selected gold intent: {len(story_triplet_candidate_list)}')
     (choiced_story_T0, choiced_story_T1) = random.choice(story_triplet_candidate_list) # 랜덤한 하나를 뽑음
                 
     I = choiced_story_T0 + ('\n'+'-'*30+'\n') + top_match_Intent + ('\n'+'-'*30+'\n') + choiced_story_T1
@@ -85,11 +85,11 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
                                                           'relation_accumulative' : R,
                                                           'user_intent' : now_Intent,
                                                           'storyT0_intent_storyT1_TRIPLET' : I})
-    print("-"*50)
-    print(f"유저입력 intent : {now_Intent}")
-    print(f"유사도1등 gold intent : {top_match_Intent}")
-    print(f"유사도 점수(코사인 거리, 낮을수록 유사함) : {top_similarity}")
-    print("-"*50)
+    print("-" * 50)
+    print(f"User input intent: {now_Intent}")
+    print(f"Top matching gold intent: {top_match_Intent}")
+    print(f"Similarity score (cosine distance, lower is more similar): {top_similarity}")
+    print("-" * 50)
     return next_story, top_match_Intent, R
 
 
@@ -103,6 +103,7 @@ while True:
     now_intent = input("INTENT - feel free to request any elements you want when writing the next story! : ")
     next_story, next_story_referenced_this_intent, next_story_referenced_this_relation = get_next_story_from_all_source_func(now_Story=now_story, now_Intent=now_intent)
     print(next_story)
+    print('-'*100)
     generated_data.append(now_intent)
     generated_data.append(next_story_referenced_this_intent)
     generated_data.append(next_story_referenced_this_relation)
