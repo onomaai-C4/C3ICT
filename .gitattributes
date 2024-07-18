@@ -1,3 +1,4 @@
 intent_DB_text/merged_DB_text.json filter=lfs diff=lfs merge=lfs -text
 intent_DB_vector/merged_DB_vector.json filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
+*.json filter=lfs diff=lfs merge=lfs -text
