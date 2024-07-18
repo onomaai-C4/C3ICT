@@ -76,11 +76,11 @@ class Generator:
             else:
                 result = self.chain.invoke(input_data).replace('\"', ' ').replace('\'', ' ')
                 
-            print(f'vvvvvvvv이 아래는 LLM입력으로 들어간 텍스트들vvvvvvvvv\n{final_input}\n')
-            print(f'^^^^^^^^이 위는 LLM입력으로 들어간 텍스트들^^^^^^^^\n')
-            print(f'vvvvvvvv이 아래는 LLM출력vvvvvvvv\n{result}\n')
-            print('^^^^^^^^이 위는 LLM출력^^^^^^^^\n')
-            print(f'vvvvvvvv비용vvvvvvvv\n{cb}\n^^^^^^^^^^^^^^^^^^')
+            print(f'vvvvvvvv Below is the text that went into the LLM input vvvvvvvvv\n{final_input}\n')
+            print(f'^^^^^^^^ Above is the text that went into the LLM input ^^^^^^^^\n')
+            print(f'vvvvvvvv Below is the LLM output vvvvvvvvv\n{result}\n')
+            print('^^^^^^^^ Above is the LLM output ^^^^^^^^\n')
+            print(f'vvvvvvvv Cost vvvvvvvv\n{cb}\n^^^^^^^^^^^^^^^^^^')
             
             return result
 
