@@ -9,7 +9,7 @@ load_dotenv(verbose=False)
 
 from openai import OpenAI
 client = OpenAI(
-  api_key=os.getenv("OPENAI_API_KEY"),  # this is also the default, it can be omitted
+  api_key=os.getenv("OPENAI_API_KEY"),  
 )
 
 def get_embedding(text):
@@ -39,9 +39,8 @@ def process_json(input_file, output_file):
         json.dump(data, file, ensure_ascii=False, indent=4)
 
 #통합된 스토리1-intent-스토리2 json을 입력받음
-input_json_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_text/merged_DB_text.json'
+input_json_path = './intent_DB_text/merged_DB_text.json'
 #intent를 벡터화해서 저장
-output_json_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector.json'
+output_json_path = './intent_DB_vector/merged_DB_vector.json'
 process_json(input_json_path, output_json_path)
-
 #요거를 잘 반복해서 통합 벡터 db를 만들어야함.

@@ -4,7 +4,7 @@ from generate import Generator
 
 Intent_augment = Generator("chatopenai_4o", 
                             0.1, 
-                            instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/augment_intent_from_base_story.txt')
+                            instruction_path='./instructions/augment_intent_from_base_story.txt')
 
 def process_json_files(directory, output_path):
     count = 1
@@ -30,6 +30,6 @@ def process_json_files(directory, output_path):
             print(f"Processed file count: {count}") 
 
 # Path to the directory containing the JSON files
-directory_path = "/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_DB"
-output_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_intent_augmented_DB'
+directory_path = "./base_story_DB"
+output_path = './base_story_intent_augmented_DB'
 process_json_files(directory_path, output_path)

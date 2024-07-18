@@ -17,7 +17,7 @@ load_dotenv(verbose=False)
 # 유저 입력은 첫 문단 + 그 다음의 모든 서술의도들
 # 출력은 완결된 하나의 스토리 
 
-get_next_story_from_Only_Intent = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_next_story_from_only_Intent.txt')
+get_next_story_from_Only_Intent = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_next_story_from_only_Intent.txt')
 
 def get_next_story_from_Only_Intent_func(now_Story : str = '입력 문단',
                                    now_Intent : str = '이렇게이렇게해서다음문단쓰세요'):
@@ -152,7 +152,7 @@ for prefix in prefix_list:
     print("현재 시각:", formatted_time)
 
     # JSON 파일로 저장
-    with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_DB/created_base_story_{formatted_time}.json', 'w') as json_file:
+    with open(f'./base_story_DB/created_base_story_{formatted_time}.json', 'w') as json_file:
         json.dump(output_dict, json_file, indent=4)
 
     print("JSON 파일이 저장되었습니다.")

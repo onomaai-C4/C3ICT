@@ -55,13 +55,13 @@ if __name__ == "__main__":
 
     book_url_list = [get_url_from_num(num) for num in book_url_num_list]#여따가 구텐베르그 책들 경로를 다 집어넣으면, 걔네들의 자연어 db(intent triplet)이 만들어짐 json파일로
 
-    get_intent_module = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_intent_between_2story.txt')
+    get_intent_module = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_intent_between_2story.txt')
     
     
     for nowbook_url in book_url_list:
         nowbook_num = nowbook_url.split('/pg')[0].split('/')[-1]
         nowbook_data = []
-        nowbook_TRIPLET_path = f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_text/{nowbook_num}_storyT0_INTENT_storyT1_TRIPLET.json'
+        nowbook_TRIPLET_path = f'./intent_DB_text/{nowbook_num}_storyT0_INTENT_storyT1_TRIPLET.json'
         
         if not os.path.exists(nowbook_TRIPLET_path):
             with open(nowbook_TRIPLET_path, 'w') as file:
@@ -81,7 +81,7 @@ if __name__ == "__main__":
                 json.dump(nowbook_data, file, indent=4)
             
         # Specify the directory containing the JSON files
-    directory = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_text'  # Replace with the path to your directory
+    directory = './intent_DB_text'  # Replace with the path to your directory
 
     # Initialize an empty list to hold all data
     all_data = []
@@ -98,7 +98,7 @@ if __name__ == "__main__":
                 all_data.extend(data)
 
     # Save the merged data to a new JSON file
-    with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_text/merged_DB_text.json', 'w', encoding='utf-8') as file_merged:
+    with open('./intent_DB_text/merged_DB_text.json', 'w', encoding='utf-8') as file_merged:
         json.dump(all_data, file_merged, ensure_ascii=False, indent=4)
 
     print("Merged JSON has been saved to 'merged_DB_text.json'")

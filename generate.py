@@ -36,25 +36,6 @@ from langchain_core.runnables import Runnable
 from typing import Optional
 from langchain_core.runnables import Runnable, RunnableConfig
 
-RETRIEVAL_ARGS = {
-    "search_type": "similarity",
-    "search_kwargs": {"k": 3}
-}
-
-LLM_ARGS = {
-    "model_name": "gpt-4-turbo",
-    "azure_deployment": os.getenv("AZURE_CHAT_DEPLOYMENT_NAME"),
-}
-
-EMBEDDING_ARGS = {
-    "azure_deployment": os.getenv("AZURE_EMBEDDING_DEPLOYMENT_NAME")
-    }
-
-OPENAI_ARGS = {
-    "model_name": "gpt-4-turbo-2024-04-09",
-    "api_key": os.getenv("OPENAI_API_KEY"),
-    "max_tokens": 1024,
-}
 GPT4_O_ARGS = {
     "model_name": "gpt-4o-2024-05-13",
     "api_key": os.getenv("OPENAI_API_KEY"),
@@ -72,21 +53,10 @@ class Generator:
                  ):
         
         self.model = model
-        
-        if self.model == "azurechatopenai":
-            self.llm = AzureChatOpenAI(**LLM_ARGS,temperature=temperature)
-        elif self.model == "chatopenai":
-            self.llm = ChatOpenAI(**OPENAI_ARGS, temperature=temperature)
-        elif self.model == "chatanthropic_s":
-            from langchain_anthropic import ChatAnthropic
-            self.llm = ChatAnthropic(model="claude-3-5-sonnet-20240620",temperature=temperature)
-        elif self.model == "chatanthropic_h":
-            self.llm = ChatAnthropic(model="claude-3-haiku-20240307",temperature=temperature)
-        elif self.model == "chatanthropic_o":
-            self.llm = ChatAnthropic(model="claude-3-opus-20240229",temperature=temperature)
-        elif self.model == "chatopenai_4o":
+
+        if self.model == "chatopenai_4o":
             self.llm = ChatOpenAI(**GPT4_O_ARGS, temperature=temperature)
-        #
+    
         print(f"Model Loaded : {self.llm}")
         
         with open(instruction_path, "r") as f:
@@ -116,7 +86,7 @@ class Generator:
 
 if __name__ == "__main__":
     model_name = "chatopenai_4o"
-    generator = Generator(model_name, 0.1, '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_intent_between_2story.txt')
+    generator = Generator(model_name, 0.1, './instructions/get_intent_between_2story.txt')
     response = generator.generate({'chapter_0': '안녕', 'chapter_1': '으아'})
  
   

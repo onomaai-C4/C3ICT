@@ -21,8 +21,8 @@ load_dotenv(verbose=False)
 # 유저 입력은 첫 문단 + 그 다음의 모든 서술의도들
 # 출력은 완결된 하나의 스토리 
 
-get_relation_graph_nowstory = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_relation_graph_nowstory.txt')
-get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_next_story_from_all_source.txt')
+get_relation_graph_nowstory = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_relation_graph_nowstory.txt')
+get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_next_story_from_all_source.txt')
 
 accumulated_graph = []
 
@@ -49,7 +49,7 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
         return response.data[0].embedding
     user_intent_vector = get_embedding(now_Intent)
     
-    with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
+    with open('./intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     top_match_Intent = None
     top_similarity = float('inf')  # Since cosine distance, lower is better
@@ -95,12 +95,12 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
 
 generated_data = []
 
-user_initial_story = input("최초 스토리 문단 입력 : ")
+user_initial_story = input("Feel free to write the beginning of the story here! : ")
 print('-'*50)
 now_story = user_initial_story
 generated_data.append(now_story)
 while True:
-    now_intent = input("다음 스토리를 어떤 식으로 쓸깝숑? : ")
+    now_intent = input("INTENT - feel free to request any elements you want when writing the next story! : ")
     next_story, next_story_referenced_this_intent, next_story_referenced_this_relation = get_next_story_from_all_source_func(now_Story=now_story, now_Intent=now_intent)
     print(next_story)
     generated_data.append(now_intent)
@@ -110,7 +110,7 @@ while True:
     
     now_story = next_story
     # 의도를 통해서 다음 스토리를 만든 경우에만 정지명령 가능
-    now_stop_question = input("이쯤에서 그만하고 저장할거면 S 누르고, 계속해서 만들거면 다른키 누르면된단다. Save and Stop / continue : ")
+    now_stop_question = input("If you want to stop here and save, press S. If you want to keep going, press any other key. (S)Save and Stop / continue : ")
     if now_stop_question == 's' or now_stop_question == 'S':
         break
     else:
@@ -146,7 +146,7 @@ formatted_time = current_time.strftime("%Y-%m-%d %H_%M_%S")
 print("현재 시각:", formatted_time)
 
 # JSON 파일로 저장
-with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/results/created_story_{formatted_time}.json', 'w') as json_file:
+with open(f'./results/created_story_{formatted_time}.json', 'w') as json_file:
     json.dump(output_dict, json_file, indent=4)
 
 print("JSON 파일이 저장되었습니다.")

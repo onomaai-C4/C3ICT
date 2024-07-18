@@ -30,5 +30,5 @@ def replace_newlines_in_json(directory):
                 json.dump(new_data, file, ensure_ascii=False, indent=4)
 
 # 특정 폴더 경로를 지정
-directory_path = "/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/AMT_data"
+directory_path = "./UPWORK_data"
 replace_newlines_in_json(directory_path)

@@ -19,7 +19,7 @@ load_dotenv(verbose=False)
 # 유저 입력은 첫 문단 + 그 다음의 모든 서술의도들
 # 출력은 완결된 하나의 스토리 
 
-get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_next_story_from_referenced_story.txt')
+get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_next_story_from_referenced_story.txt')
 
 
 def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
@@ -38,7 +38,7 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
         return response.data[0].embedding
     user_intent_vector = get_embedding(now_Intent)
     
-    with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
+    with open('./intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     top_match_Intent = None
     top_similarity = float('inf')  # Since cosine distance, lower is better
@@ -80,7 +80,7 @@ def get_next_story_from_all_source_func(now_Story : str = '입력 문단',
     print("-"*50)
     return next_story, top_match_Intent, I
 
-base_story_intent_augmented_DB_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_intent_augmented_DB'
+base_story_intent_augmented_DB_path = './base_story_intent_augmented_DB'
 count = 1 
 for filename in os.listdir(base_story_intent_augmented_DB_path):
 
@@ -157,7 +157,7 @@ for filename in os.listdir(base_story_intent_augmented_DB_path):
             output_dict[key] = item
 
         # JSON 파일로 저장
-        with open(f'/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_RAG_results/{count}_RAG_created_story.json', 'w') as json_file:
+        with open(f'./base_story_RAG_results/{count}_RAG_created_story.json', 'w') as json_file:
             json.dump(output_dict, json_file, indent=4)
 
         print("JSON 파일이 저장되었습니다.")

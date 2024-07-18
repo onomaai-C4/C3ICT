@@ -1,6 +1,6 @@
 import gradio as gr
 from generate import Generator
-import requests, re, json, os, openai
+import requests, re, json, os, openai, time
 from langchain_community.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 import numpy as np
@@ -13,8 +13,8 @@ import tempfile
 load_dotenv(verbose=False)
 
 # Initialize generators with appropriate paths
-get_relation_graph_nowstory = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_relation_graph_nowstory.txt')
-get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/instructions/get_next_story_from_all_source.txt')
+get_relation_graph_nowstory = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_relation_graph_nowstory.txt')
+get_next_story_from_all_source = Generator("chatopenai_4o", 0.1, instruction_path='./instructions/get_next_story_from_all_source.txt')
 
 accumulated_graph = []
 generated_data = []
@@ -43,7 +43,7 @@ def get_next_story_from_all_source_func(now_Story, now_Intent):
 
     user_intent_vector = get_embedding(now_Intent)
     
-    with open('/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
+    with open('./intent_DB_vector/merged_DB_vector.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     
     top_match_Intent = None

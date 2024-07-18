@@ -1,8 +1,8 @@
 import requests, re, json, os, openai
 
-base_story_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_intent_augmented_DB'
-intent_triplet_RAG_results_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/base_story_RAG_results'
-AMT_data_path = '/data1/fabulator/GRAPH_STUDY/Relation_Intent_Story_Generation/AMT_data'
+base_story_path = './base_story_intent_augmented_DB'
+intent_triplet_RAG_results_path = './base_story_RAG_results'
+UPWORK_data_path = './UPWORK_data'
 
 
 files_base = [f for f in os.listdir(base_story_path) if f.endswith('.json')]
@@ -33,7 +33,7 @@ for file_base in files_base:
         combined_data.append(combined_entry)
     
     # 폴더 C에 저장
-    output_filename = os.path.join(AMT_data_path, f"{base_filename}_combined.json")
+    output_filename = os.path.join(UPWORK_data_path, f"{base_filename}_combined.json")
     with open(output_filename, 'w', encoding='utf-8') as f:
         json.dump(combined_data, f, ensure_ascii=False, indent=4)
     print(f"{base_filename}_combined.json 저장됨")
