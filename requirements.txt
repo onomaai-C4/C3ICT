@@ -1,0 +1,9 @@
+gradio==4.36.1
+langchain-community==0.2.4
+langchain_openai==0.1.10
+langchain_anthropic==0.1.15
+transformers==4.40.0
+datasets==2.20.0
+torch==2.3.1
+sentence_transformers==3.0.1
+openai==1.35.5
