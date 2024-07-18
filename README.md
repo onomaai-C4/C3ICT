@@ -2,6 +2,8 @@
 
 This repo contains code for C4: Creating the Next Story From the Current Story And the Retrieved Chapter-Intent-Chapter Triplet.
 
+[PDF 파일 보기](./README_data/1_Main%20Module.pdf)
+
 ### Preparation
 
 First, you will need an OpenAPI key. Enter your key in the format 'sk-xxxx...' in the .env_sample file.
