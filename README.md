@@ -2,7 +2,7 @@
 
 This repo contains code for C4: Creating the Next Story From the Current Story And the Retrieved Chapter-Intent-Chapter Triplet.
 
-[PDF 파일 보기](./README_data/1_Main%20Module.pdf)
+[이미지 파일 보기](./README_data/db.png)
 
 ### Preparation
 
